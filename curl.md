@@ -1,4 +1,4 @@
-
+### Add Admin
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
    "$class": "org.crime.control.Admin",
@@ -7,7 +7,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
    "password": "a1"
 }' 'http://localhost:3000/api/org.crime.control.Admin'
 ```
-
+### Add AgencyJudge
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.AgencyJudge", 
@@ -16,7 +16,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "password": "ag1" 
 }' 'http://localhost:3000/api/org.crime.control.AgencyJudge'
 ```
-
+### Add People
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.People", 
@@ -25,7 +25,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "password": "pe1" 
 }' 'http://localhost:3000/api/org.crime.control.People'
 ```
-
+### Add Ploice
 
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
@@ -37,7 +37,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "password": "po1" 
 }' 'http://localhost:3000/api/org.crime.control.Police'
 ```
-
+### Add Whistle Blower
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.WhistleBlower", 
@@ -48,6 +48,15 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "password": "wb1" 
 }' 'http://localhost:3000/api/org.crime.control.WhistleBlower'
 ```
+### Add Case by WhistlerBlower
+(defined catagories)
+
+ * ASSAULT
+ * FALSE_IMPRISONMENT
+ * KIDNAPPING
+ * HOMICIDE
+ * RAPE
+ * BATTERY 
 
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
@@ -62,7 +71,15 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "whistleBlowerCaseCreator": "resource:org.crime.control.WhistleBlower#wb1" 
 }' 'http://localhost:3000/api/org.crime.control.Case'
 ```
+### Add Case by Police
+(defined catagories)
 
+ * ASSAULT
+ * FALSE_IMPRISONMENT
+ * KIDNAPPING
+ * HOMICIDE
+ * RAPE
+ * BATTERY 
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.Case", 
@@ -76,7 +93,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "policeCaseCreator": "resource:org.crime.control.Police#po1" 
 }' 'http://localhost:3000/api/org.crime.control.Case'
 ```
-
+### Add Case with (other) catagory
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.Case", 
@@ -90,7 +107,8 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "whistleBlowerCaseCreator": "resource:org.crime.control.WhistleBlower#wb1" 
 }' 'http://localhost:3000/api/org.crime.control.Case'
 ```
-
+### Assign Police to Case by JudgeAgency
+judge/agency assign ploice to case & change the case status to "POLICE_ASSIGNED". only one police can be assigned in single transaction.
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.AssignPolice", 
@@ -99,7 +117,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
 }' 'http://localhost:3000/api/org.crime.control.AssignPolice'
 ```
-
+### Add Evidence to case by Whistle blower
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.AddEvidence", 
@@ -114,7 +132,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "casee": "resource:org.crime.control.Case#ca1" 
 }' 'http://localhost:3000/api/org.crime.control.Evidence'
 ```
-
+### Add Evidence to case by Police
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
    "$class": "org.crime.control.AddEvidence", 
@@ -129,7 +147,8 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "casee": "resource:org.crime.control.Case#ca1" 
 }' 'http://localhost:3000/api/org.crime.control.Evidence'
 ```
-
+### Mark case as Rejected
+judge/agency changed the case status to "REJECTED"(invalid) after processing case & its edivences.
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.UpdateCaseStatusRejected", 
@@ -137,7 +156,8 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
 }' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusRejected'
 ```
-
+### Mark case as Terminated
+judge/agency changed the case status to "TERMINATED" coz of no evidence
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.UpdateCaseStatusTerminated", 
@@ -145,14 +165,8 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
 }' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusTerminated'
 ```
-
-```
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
-    "$class": "org.crime.control.UpdateCaseStatusTerminated", 
-    "casee": "resource:org.crime.control.Case#ca1", 
-    "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
-}' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusTerminated'
-```
+### Mark case as Solved
+judge/agency changed the case status to "SOLVED" (action taken) after processing case & its edivences. and an invoice is created that contains the police(s) and whistleBlowers who are awarded amount for their evidences or case creation. agency/judge has to choose and mention them as mebers with their earned amount in member array of invoice.
 
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
@@ -181,7 +195,8 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
 }' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusSolved'
 ```
-
+### Mark case as Solved
+Admin changed the Invoide status to "DONE" after transfering the amount to member's wallets.
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.UpdateInvoiceStatusDone", 
@@ -189,3 +204,12 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     "admin": "resource:org.crime.control.Admin#a1" 
 }' 'http://localhost:3000/api/org.crime.control.UpdateInvoiceStatusDone'
 ```
+### Check case duration
+Checks the case duration and updates durationStatus accordingly.If case is more than 3 months old then chnage the durationStatus to "PENDING". (call this transaction each day using frontend logic).
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+    "$class": "org.crime.control.CheckCaseDuration", 
+    "casee": "resource:org.crime.control.Case#ca1" 
+}' 'http://localhost:3000/api/org.crime.control.CheckCaseDuration'
+```
+
