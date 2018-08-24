@@ -1,0 +1,159 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Write your model definitions here
+ */
+
+namespace org.crime.control
+
+asset Case identified by caseId {
+  o String caseId
+  o String description
+  o Category category 
+  o Status status default="INITIATED"
+  o DurationStatus durationStatus default="INITIATED"
+  o DateTime creationDate 
+  o String duration optional
+  --> Evidence[] evidences optional
+  --> WhistleBlower whistleBlowerCaseCreator optional  // whistleBlower as case creator
+  --> Police policeCaseCreator optional                // police as case creator
+  --> Police[] police optional                         // ploice one or more assigned to case by agency/judge
+}
+
+concept Category {
+  o DefinedCategories type optional
+  o String other optional
+} 
+
+enum DefinedCategories {
+  o ASSAULT
+  o FALSE_IMPRISONMENT
+  o KIDNAPPING
+  o HOMICIDE
+  o RAPE
+  o BATTERY 
+}
+
+enum DurationStatus {
+  o INITIATED // when created (default) or case is less than 3 months old
+  o PENDING // when case is more than 3 months old
+}
+
+enum Status {
+  o INITIATED // when created (default)
+  o POLICE_ASSIGNED //judge/agency assigned police
+  o TERMINATED // judge/agency terminated coz of no evidence
+  o REJECTED // judge/agency rejected (invalid) after processing case and its edivences
+  o SOLVED // judge/agency took action on case
+}
+
+asset Evidence identified by evidenceId {
+  o String evidenceId
+  o String details 
+  o String[] images optional // an array of all the images in base64 format 
+  o String[] files optional // an array of all the files in base64 format 
+  --> WhistleBlower whistleBlower optional  
+  --> Police police optional  
+
+}
+
+asset Invoice identified by invoiceId {
+  o String invoiceId
+  o InvoiceStatus status default="PENDING"
+  o Member[] members optional // add police(s) or whistleBlowers along with the amount they are given by agency/judge.
+}
+
+concept Member {
+  o Double amount
+  --> Police police optional
+  --> WhistleBlower whistleBlower optional
+}
+
+enum InvoiceStatus {
+  o PENDING
+  o DONE
+}
+abstract participant User identified by email {
+  o String email
+  o String names
+  o String password
+}
+
+participant People extends User {
+  
+}
+
+participant WhistleBlower extends User {
+  o String wallet
+  o WalletType walletType
+
+}
+
+participant Police extends User {
+  o String wallet
+  o WalletType walletType
+  o AssignPolice[] assignedCases optional
+
+}
+
+enum WalletType {
+  o BITCOIN
+  o PAYPAL
+  o ETHEREUM
+}
+
+participant AgencyJudge extends User {
+
+}
+
+participant Admin extends User {
+
+}
+
+transaction AddEvidence { // police assigned to case or police who is creator of case or any whistleBlower can add evidence to case.
+  o Evidence evidence
+  --> Case casee
+}
+
+transaction AssignPolice { // judge/agency assign ploice to case & change the case status to "POLICE_ASSIGNED". only one police can be assigned in single transaction.
+  --> Case casee
+  --> Police police 
+  --> AgencyJudge agencyJudge
+}
+
+transaction UpdateCaseStatusTerminated { // judge/agency changed the case status to "TERMINATED" coz of no evidence
+  --> Case casee
+  --> AgencyJudge agencyJudge
+}
+
+transaction UpdateCaseStatusRejected { // judge/agency changed the case status to "REJECTED"(invalid) after processing case & its edivences.
+  --> Case casee
+  --> AgencyJudge agencyJudge
+}
+
+transaction UpdateCaseStatusSolved { // judge/agency changed the case status to "SOLVED" (action taken) after processing case & its edivences. and an invoice is created that contains the police(s) and whistleBlowers who are awarded amount for their evidences or case creation. agency/judge has to choose and mention them as mebers in member array of invoice.
+  o Invoice invoice
+  --> Case casee
+  --> AgencyJudge agencyJudge
+}
+
+transaction CheckCaseDuration { // Checks the case duration and updates durationStatus accordingly.  
+  --> Case casee                // If case is more than 3 months old then chnage the durationStatus to "PENDING"           
+}
+
+transaction UpdateInvoiceStatusDone { // Admin changed the Invoide status to "DONE" after transfering the amount to member's wallets.
+  --> Invoice invoice
+  --> Admin admin
+}
