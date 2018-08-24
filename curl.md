@@ -1,18 +1,45 @@
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
+```
+curl -X POST \
+  http://localhost:3000/api/initiator \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+"$class": "org.trade.argalogics.Initiator",
+   "email": "initiator_2",
+   "address": {
+     "$class": "org.trade.argalogics.Address",
+     "longitude": "xyz",
+     "latitude": "xyz",
+     "city": "xyz",
+     "country": "xyz",
+     "zip": "xyz"
+   }
+}
+'
+```
+
+
+```
+
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
    "$class": "org.crime.control.Admin",
    "email": "a1",
    "names": "a1",
    "password": "a1"
-}' 'http://localhost:3000/api/org.crime.control.Admin'`
+}' 'http://localhost:3000/api/org.crime.control.Admin'
+
+```
 
 
 
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+``
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.AgencyJudge", 
     "email": "ag1", 
     "names": "ag1", 
     "password": "ag1" 
-}' 'http://localhost:3000/api/org.crime.control.AgencyJudge'`
+}' 'http://localhost:3000/api/org.crime.control.AgencyJudge'
+``
 
 
 `curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
