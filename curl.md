@@ -1,79 +1,56 @@
-```
-curl -X POST \
-  http://localhost:3000/api/initiator \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -d '{
-"$class": "org.trade.argalogics.Initiator",
-   "email": "initiator_2",
-   "address": {
-     "$class": "org.trade.argalogics.Address",
-     "longitude": "xyz",
-     "latitude": "xyz",
-     "city": "xyz",
-     "country": "xyz",
-     "zip": "xyz"
-   }
-}
-'
-```
-
 
 ```
-
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
    "$class": "org.crime.control.Admin",
    "email": "a1",
    "names": "a1",
    "password": "a1"
 }' 'http://localhost:3000/api/org.crime.control.Admin'
-
 ```
 
-
-
-``
+```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.AgencyJudge", 
     "email": "ag1", 
     "names": "ag1", 
     "password": "ag1" 
 }' 'http://localhost:3000/api/org.crime.control.AgencyJudge'
-``
+```
 
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.People", 
     "email": "pe1", 
     "names": "pe1", 
     "password": "pe1" 
-}' 'http://localhost:3000/api/org.crime.control.People'`
+}' 'http://localhost:3000/api/org.crime.control.People'
+```
 
 
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.Police", 
     "wallet": "xannaiasncinaciadwudnsjnja", 
     "walletType": "BITCOIN", 
     "email": "po1", 
     "names": "po1", 
     "password": "po1" 
-}' 'http://localhost:3000/api/org.crime.control.Police'`
+}' 'http://localhost:3000/api/org.crime.control.Police'
+```
 
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.WhistleBlower", 
     "wallet": "sncjnsajhduamsjcbuassj", 
     "walletType": "BITCOIN", 
     "email": "wb1", 
     "names": "wb1", 
     "password": "wb1" 
-}' 'http://localhost:3000/api/org.crime.control.WhistleBlower'`
+}' 'http://localhost:3000/api/org.crime.control.WhistleBlower'
+```
 
-
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.Case", 
     "caseId": "ca1", 
     "description": "case 1 description", 
@@ -83,10 +60,11 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     }, 
     "creationDate": "2018-08-24T14:47:18.008Z", 
     "whistleBlowerCaseCreator": "resource:org.crime.control.WhistleBlower#wb1" 
-}' 'http://localhost:3000/api/org.crime.control.Case'`
+}' 'http://localhost:3000/api/org.crime.control.Case'
+```
 
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.Case", 
     "caseId": "ca2", 
     "description": "case 1 description", 
@@ -96,13 +74,11 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     }, 
     "creationDate": "2018-08-24T14:47:18.008Z", 
     "policeCaseCreator": "resource:org.crime.control.Police#po1" 
-}' 'http://localhost:3000/api/org.crime.control.Case'`
+}' 'http://localhost:3000/api/org.crime.control.Case'
+```
 
-
-
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.Case", 
     "caseId": "ca3", 
     "description": "case 3 description", 
@@ -112,21 +88,20 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
  }, 
     "creationDate": "2018-08-24T14:56:45.370Z", 
     "whistleBlowerCaseCreator": "resource:org.crime.control.WhistleBlower#wb1" 
-}' 'http://localhost:3000/api/org.crime.control.Case'`
+}' 'http://localhost:3000/api/org.crime.control.Case'
+```
 
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.AssignPolice", 
     "casee": "resource:org.crime.control.Case#ca1", 
     "police": "resource:org.crime.control.Police#po1", 
     "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
-}' 'http://localhost:3000/api/org.crime.control.AssignPolice'`
+}' 'http://localhost:3000/api/org.crime.control.AssignPolice'
+```
 
-
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.AddEvidence", 
     "evidence": { 
     "$class": "org.crime.control.Evidence", 
@@ -137,11 +112,11 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
       "whistleBlower": "resource:org.crime.control.WhistleBlower#wb1" 
     }, 
     "casee": "resource:org.crime.control.Case#ca1" 
-}' 'http://localhost:3000/api/org.crime.control.Evidence'`
+}' 'http://localhost:3000/api/org.crime.control.Evidence'
+```
 
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
    "$class": "org.crime.control.AddEvidence", 
     "evidence": { 
       "$class": "org.crime.control.Evidence", 
@@ -152,45 +127,35 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
       "police": "resource:org.crime.control.Police#po1" 
     }, 
     "casee": "resource:org.crime.control.Case#ca1" 
-}' 'http://localhost:3000/api/org.crime.control.Evidence'`
+}' 'http://localhost:3000/api/org.crime.control.Evidence'
+```
 
-
-
-
-
-
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.UpdateCaseStatusRejected", 
     "casee": "resource:org.crime.control.Case#ca1", 
     "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
-}' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusRejected'`
+}' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusRejected'
+```
 
-
-
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.UpdateCaseStatusTerminated", 
     "casee": "resource:org.crime.control.Case#ca1", 
     "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
-}' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusTerminated'`
+}' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusTerminated'
+```
 
-
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.UpdateCaseStatusTerminated", 
     "casee": "resource:org.crime.control.Case#ca1", 
     "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
-}' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusTerminated'`
+}' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusTerminated'
+```
 
-
-
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.UpdateCaseStatusSolved", 
     "invoice": { 
       "$class": "org.crime.control.Invoice", 
@@ -214,17 +179,13 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
     }, 
     "casee": "resource:org.crime.control.Case#ca1", 
     "agencyJudge": "resource:org.crime.control.AgencyJudge#ag1" 
-}' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusSolved'`
+}' 'http://localhost:3000/api/org.crime.control.UpdateCaseStatusSolved'
+```
 
-
-
-`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
+```
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
     "$class": "org.crime.control.UpdateInvoiceStatusDone", 
     "invoice": "resource:org.crime.control.Invoice#in1", 
     "admin": "resource:org.crime.control.Admin#a1" 
-}' 'http://localhost:3000/api/org.crime.control.UpdateInvoiceStatusDone'`
-
-
-
-
-
+}' 'http://localhost:3000/api/org.crime.control.UpdateInvoiceStatusDone'
+```
